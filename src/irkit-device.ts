@@ -47,17 +47,17 @@ export class IRKitDevice {
   }
 
   public postMessages(message: Message): Promise<void> {
-    return this.fetch('POST', '/messages', message);
+    return this.fetch('POST', '/messages', JSON.stringify(message));
   }
 
   public postWifi(wifi: WifiOptions): Promise<void> {
     return this.fetch('POST', '/wifi', serialize(wifi));
   }
 
-  private fetch<T>(method: string, path: string, body?: any): Promise<T> {
+  private fetch<T>(method: string, path: string, body?: string): Promise<T> {
     const url = 'http://' + this.deviceIp + path;
     return fetch(url, {
-      ...(method === 'GET' ? {} : { body: JSON.stringify(body) }),
+      ...(method === 'GET' ? {} : { body }),
       headers: {
         'Accept': 'text/plain', // text/plain only
         'Content-Type': 'text/plain'
