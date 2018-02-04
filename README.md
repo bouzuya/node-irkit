@@ -87,7 +87,18 @@ const main = async () => {
   const messages = await client.getMessages({
     clientkey: keys.clientkey
   });
-  console.log(messages);
+  if (messages !== null) {
+    console.log(messages);
+    // {"message":{"format":"raw","freq":38,"data":[18031,...]},"hostname":"IRKitD2A4","deviceid":"FBEC7F5148274DADB608799D43175FD1"}
+  }
+
+  // IRKit.prototype.postClients()
+  // POST /1/clients
+  const clients = await client.postClients({
+    apikey: keys.apikey
+  });
+  console.log(clients);
+  // {"clientkey":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
 };
 
 main();
@@ -106,8 +117,8 @@ main();
 
 - POST /1/keys
 - POST /1/messages
-- TODO: GET /1/messages
-- TODO: POST /1/clients
+- GET /1/messages
+- POST /1/clients
 - TODO: POST /1/devices
 - TODO: POST /1/door
 - TODO: POST /1/apps

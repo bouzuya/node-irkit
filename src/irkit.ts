@@ -34,6 +34,12 @@ export class IRKit {
     });
   }
 
+  public postClients(
+    options: { apikey: string; }
+  ): Promise<{ clientkey: string; }> {
+    return this.fetch('POST', '/1/clients', options);
+  }
+
   public postKeys(
     options: { clientkey?: string; clienttoken: string; }
   ): Promise<Key> {
