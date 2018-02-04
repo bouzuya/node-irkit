@@ -1,5 +1,9 @@
 import { fetch } from './_';
 
+export interface Key {
+  clienttoken: string;
+}
+
 export interface Message {
   data: number[];
   format: 'raw';
@@ -26,28 +30,21 @@ export class IRKitDevice {
   }
 
   public getMessages(): Promise<Message | null> {
-    const method = 'GET';
-    const path = '/messages';
-    const url = 'http://' + this.deviceIp + path;
-    return fetch(url, {
-      headers: {
-        Accept: 'text/plain' // text/plain only
-      },
-      method
-    })
-      .then((response) => {
-        return response.status === 200
-          ? response.text().then((text) => text.length === 0 ? null : JSON.parse(text))
-          : Promise.reject(new Error(`status: ${response.status}`));
-      });
+    return this.fetch('GET', '/messages');
+  }
+
+  public postKeys(): Promise<Key> {
+    return this.fetch('POST', '/keys');
   }
 
   public postMessages(message: Message): Promise<void> {
-    const method = 'POST';
-    const path = '/messages';
+    return this.fetch('POST', '/messages', message);
+  }
+
+  private fetch<T>(method: string, path: string, body?: any): Promise<T> {
     const url = 'http://' + this.deviceIp + path;
     return fetch(url, {
-      body: JSON.stringify(message),
+      ...(method === 'GET' ? {} : { body: JSON.stringify(body) }),
       headers: {
         'Accept': 'text/plain', // text/plain only
         'Content-Type': 'application/json'

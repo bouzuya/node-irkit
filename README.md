@@ -18,6 +18,7 @@ const main = async () => {
   const device = new IRKitDevice({ ip: '192.168.1.1' });
 
   // IRKitDevice.prototype.getMessages()
+  // GET /messages
   const message = await device.getMessages();
   if (message !== null) {
     // {"format":"raw","freq":38,"data":[18031, ...]}
@@ -25,11 +26,18 @@ const main = async () => {
   }
 
   // IRKitDevice.prototype.postMessages()
+  // POST /messages
   await device.postMessages({
     format: 'raw',
     freq: 38,
     data: [ /* ... */ ]
   });
+
+  // IRKitDevice.prototype.postKeys()
+  // POST /keys
+  const keys = await device.postKeys();
+  // {"clienttoken":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
+  console.log(keys);
 };
 
 main();
@@ -41,7 +49,7 @@ main();
 
 - GET /messages
 - POST /messages
-- TODO: POST /keys
+- POST /keys
 - TODO: POST /wifi
 
 ### IRKit Internet HTTP API
