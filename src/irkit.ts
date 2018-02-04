@@ -46,6 +46,12 @@ export class IRKit {
     return this.fetch('POST', '/1/devices', options);
   }
 
+  public postDoor(
+    options: { clientkey: string; deviceid: string; }
+  ): Promise<{ hostname: string; }> {
+    return this.fetch('POST', '/1/door', options);
+  }
+
   public postKeys(
     options: { clientkey?: string; clienttoken: string; }
   ): Promise<Key> {

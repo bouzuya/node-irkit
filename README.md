@@ -107,6 +107,15 @@ const main = async () => {
   });
   console.log(devices);
   // {"devicekey":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX","deviceid":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
+
+  // IRKit.prototype.postDoor()
+  // POST /1/door
+  const door = await client.postDoor({
+    clientkey: keys.clientkey,
+    deviceid: devices.deviceid
+  });
+  console.log(door);
+  // {"hostname":"IRKitXXXX"}
 };
 
 main();
@@ -128,7 +137,7 @@ main();
 - GET /1/messages
 - POST /1/clients
 - POST /1/devices
-- TODO: POST /1/door
+- POST /1/door
 - TODO: POST /1/apps
 
 ## Badges
