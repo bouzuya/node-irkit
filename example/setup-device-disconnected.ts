@@ -66,3 +66,5 @@ try {
 } catch (e) {
   console.error(e);
 }
+
+export { main };
