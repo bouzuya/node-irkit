@@ -10,7 +10,19 @@ const main = async () => {
     case 'setup-device-disconnected':
       return setupDeviceConnedted();
     default:
-      throw new Error(`unknown command: ${command}`);
+      console.log([
+        '',
+        'Usage:',
+        '',
+        '    node .tmp/es5/example/index.js <command>',
+        '',
+        'Commands:',
+        '',
+        '    setup-device-connected',
+        '    setup-device-disconnected',
+        ''
+      ].join('\n'));
+      throw new Error(`unknown command: ${command}.`);
   }
 };
 
