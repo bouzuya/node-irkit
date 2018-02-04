@@ -63,10 +63,25 @@ const main = async () => {
   const device = new IRKitDevice({ ip: '192.168.1.1' });
   const client = new IRKit();
 
+  // IRKit.prototype.postKeys()
+  // POST /1/keys
   const { clienttoken } = await device.postKeys();
   const keys = await client.postKeys({ clienttoken });
-  console.log(key);
+  console.log(keys);
   // { deviceid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', clientkey: 'XXXXXXXXXXXXXXXXXXXXXXX' }
+
+  // IRKit.prototype.postMessages()
+  // POST /1/messages
+  const messages = await client.postMessages({
+    clientkey: keys.clientkey,
+    deviceid: keys.deviceid,
+    message: {
+      format: 'raw',
+      freq: 38,
+      data: [ /* ... */ ]
+    }
+  });
+  console.log(key);
 };
 
 main();
@@ -84,7 +99,7 @@ main();
 ### IRKit Internet HTTP API
 
 - POST /1/keys
-- TODO: POST /1/messages
+- POST /1/messages
 - TODO: GET /1/messages
 - TODO: POST /1/clients
 - TODO: POST /1/devices

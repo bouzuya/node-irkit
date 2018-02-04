@@ -5,11 +5,27 @@ export interface Key {
   deviceid: string;
 }
 
+export interface Message {
+  data: number[];
+  format: 'raw';
+  freq: 38 | 40; // kHz
+}
+
 export class IRKit {
   public postKeys(
     options: { clientkey?: string; clienttoken: string; }
   ): Promise<Key> {
     return this.fetch('POST', '/1/keys', options);
+  }
+
+  public postMessages(
+    { clientkey, deviceid, message }: { clientkey: string; deviceid: string; message: Message; }
+  ): Promise<void> {
+    return this.fetch('POST', '/1/messages', {
+      clientkey,
+      deviceid,
+      message: JSON.stringify(message)
+    });
   }
 
   private fetch<T>(method: string, path: string, body?: any): Promise<T> {
