@@ -17,12 +17,16 @@ const promiseFinally = <T, U>(promise: Promise<T>, f: () => U): Promise<T> => {
 };
 
 const fixture = <T>(
-  { after, before }: {
-    after: (context: T) => void;
+  options: {
+    after?: (context: T) => void;
     before: () => Promise<T>;
   },
   f: (context: T) => void
 ): () => Promise<void> => {
+  const after = typeof options.after === 'undefined'
+    ? (_: T) => void 0
+    : options.after;
+  const before = options.before;
   return (): Promise<void> => {
     return promiseTry(before).then((context) => {
       return promiseFinally(

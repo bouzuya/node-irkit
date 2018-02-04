@@ -15,13 +15,19 @@ import { IRKitDevice } from '@bouzuya/irkit';
 
 // options.ip or `process.env.IRKIT_DEVICE_IP`
 const device = new IRKitDevice({ ip: '192.168.1.1' });
+device.getMessages().then((message) => {
+  if (message !== null) {
+    // {"format":"raw","freq":38,"data":[18031, ...]}
+    console.log(message);
+  }
+});
 ```
 
 ## APIs
 
 ### IRKit Device HTTP API
 
-- TODO: GET /messages
+- GET /messages
 - TODO: POST /messages
 - TODO: POST /keys
 - TODO: POST /wifi

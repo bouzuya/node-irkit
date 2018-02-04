@@ -1,9 +1,9 @@
 import { Test, test } from 'beater';
 import assert from 'power-assert';
-import { IRKitDevice } from '../src/irkit-device';
-import { fixture } from './_';
+import { IRKitDevice } from '../../src/irkit-device';
+import { fixture } from '../_';
 
-const category = '/irkit-device ';
+const category = '/irkit-device (constructor) ';
 const tests: Test[] = [
   test(
     category + 'no options',

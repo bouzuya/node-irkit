@@ -1,3 +1,11 @@
+import { fetch } from './_';
+
+export interface Message {
+  data: number[];
+  format: 'raw';
+  freq: 38 | 40; // kHz
+}
+
 export class IRKitDevice {
   private deviceIp: string;
 
@@ -15,5 +23,22 @@ export class IRKitDevice {
 
   public getDeviceIp(): string {
     return this.deviceIp;
+  }
+
+  public getMessages(): Promise<Message | null> {
+    const method = 'GET';
+    const path = '/messages';
+    const url = 'http://' + this.deviceIp + path;
+    return fetch(url, {
+      headers: {
+        Accept: 'text/plain' // text/plain only
+      },
+      method
+    })
+      .then((response) => {
+        return response.status === 200
+          ? response.text().then((text) => text.length === 0 ? null : JSON.parse(text))
+          : Promise.reject(new Error(`status: ${response.status}`));
+      });
   }
 }
