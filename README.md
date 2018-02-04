@@ -59,7 +59,7 @@ main();
 - GET /messages
 - POST /messages
 - POST /keys
-- TODO: POST /wifi
+- POST /wifi
 
 ### IRKit Internet HTTP API
 

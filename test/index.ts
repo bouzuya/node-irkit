@@ -1,7 +1,6 @@
 import { Test, run, test } from 'beater';
 import assert from 'power-assert';
 import { IRKitDevice, Message, Security } from '../src';
-import { tests as addTests } from './add';
 import { tests as irkitDeviceTests } from './irkit-device';
 import {
   tests as irkitDeviceKeySerializerTests
@@ -29,7 +28,6 @@ const tests: Test[] = [
     assert(wpa === 8);
   })
 ]
-  .concat(addTests)
   .concat(irkitDeviceTests)
   .concat(irkitDeviceKeySerializerTests);
 
