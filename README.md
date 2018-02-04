@@ -10,6 +10,8 @@ npm install @bouzuya/irkit
 
 ## Usage
 
+See [`example/`](example/).
+
 ### `IRKitDevice` (IRKit Device HTTP API)
 
 ```typescript
