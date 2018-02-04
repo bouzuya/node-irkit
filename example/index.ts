@@ -1,10 +1,13 @@
 // tslint:disable
+import { main as postMessage } from './post-message';
 import { main as setupDeviceConnedted } from './setup-device-connected';
 import { main as setupDeviceDisconnedted } from './setup-device-disconnected';
 
 const main = async () => {
   const command = process.argv[2];
   switch (command) {
+    case 'post-message':
+      return postMessage();
     case 'setup-device-connected':
       return setupDeviceDisconnedted();
     case 'setup-device-disconnected':
@@ -18,6 +21,7 @@ const main = async () => {
         '',
         'Commands:',
         '',
+        '    post-message',
         '    setup-device-connected',
         '    setup-device-disconnected',
         ''
