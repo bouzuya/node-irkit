@@ -116,6 +116,16 @@ const main = async () => {
   });
   console.log(door);
   // {"hostname":"IRKitXXXX"}
+
+
+  // IRKit.prototype.postApps()
+  // POST /1/door
+  const app = await client.postApps({
+    email: 'mail@example.com'
+  });
+  console.log(app);
+  // {"message":"You will receive an email shortly, please click the URL in it to get an apikey"}
+
 };
 
 main();
@@ -138,7 +148,7 @@ main();
 - POST /1/clients
 - POST /1/devices
 - POST /1/door
-- TODO: POST /1/apps
+- POST /1/apps
 
 ## Badges
 

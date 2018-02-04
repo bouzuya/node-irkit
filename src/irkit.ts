@@ -34,6 +34,12 @@ export class IRKit {
     });
   }
 
+  public postApps(
+    options: { email: string; }
+  ): Promise<{ message: string; }> {
+    return this.fetch('POST', '/1/apps', options);
+  }
+
   public postClients(
     options: { apikey: string; }
   ): Promise<{ clientkey: string; }> {
