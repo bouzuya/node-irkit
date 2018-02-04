@@ -38,14 +38,13 @@ const tests: Test[] = [
         status: 200,
         text: () => Promise.resolve('')
       }));
-      return device.postMessages(message).then((m) => {
+      return device.postMessages(message).then(() => {
         assert(fetch.callCount === 1);
         const args = fetch.getCall(0).args;
         assert(args.length === 2);
         assert(args[0] === 'http://192.168.1.2/messages');
         assert(args[1].method === 'POST');
         assert.deepEqual(args[1].body, JSON.stringify(message));
-        assert(m === null);
       });
     })
   ),
