@@ -1,6 +1,7 @@
 import { Test, run, test } from 'beater';
 import assert from 'power-assert';
-import { IRKitDevice, Message, Security } from '../src';
+import { IRKit, IRKitDevice, Message, Security } from '../src';
+import { tests as irkitTests } from './irkit';
 import { tests as irkitDeviceTests } from './irkit-device';
 import {
   tests as irkitDeviceKeySerializerTests
@@ -8,6 +9,9 @@ import {
 
 const category = '/index ';
 const tests: Test[] = [
+  test(category + 'IRKit', () => {
+    assert(IRKit);
+  }),
   test(category + 'IRKitDevice', () => {
     assert(IRKitDevice);
   }),
@@ -28,6 +32,7 @@ const tests: Test[] = [
     assert(wpa === 8);
   })
 ]
+  .concat(irkitTests)
   .concat(irkitDeviceTests)
   .concat(irkitDeviceKeySerializerTests);
 

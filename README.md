@@ -10,6 +10,8 @@ npm install @bouzuya/irkit
 
 ## Usage
 
+### `IRKitDevice` (IRKit Device HTTP API)
+
 ```typescript
 import { IRKitDevice, Message, Security } from '@bouzuya/irkit';
 
@@ -21,8 +23,8 @@ const main = async () => {
   // GET /messages
   const message: Message = await device.getMessages();
   if (message !== null) {
-    // {"format":"raw","freq":38,"data":[18031, ...]}
     console.log(message);
+    // {"format":"raw","freq":38,"data":[18031, ...]}
   }
 
   // IRKitDevice.prototype.postMessages()
@@ -36,8 +38,8 @@ const main = async () => {
   // IRKitDevice.prototype.postKeys()
   // POST /keys
   const keys = await device.postKeys();
-  // {"clienttoken":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
   console.log(keys);
+  // {"clienttoken":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
 
   // IRKitDevice.prototype.postWifi()
   // POST /wifi
@@ -47,6 +49,24 @@ const main = async () => {
     security: Security.WPA_WPA2,
     ssid: /* ... */
   });
+};
+
+main();
+```
+
+### `IRKit` (IRKit Internet HTTP API)
+
+```typescript
+import { IRKit, IRKitDevice } from '@bouzuya/irkit';
+
+const main = async () => {
+  const device = new IRKitDevice({ ip: '192.168.1.1' });
+  const client = new IRKit();
+
+  const { clienttoken } = await device.postKeys();
+  const keys = await client.postKeys({ clienttoken });
+  console.log(key);
+  // { deviceid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', clientkey: 'XXXXXXXXXXXXXXXXXXXXXXX' }
 };
 
 main();
@@ -63,7 +83,7 @@ main();
 
 ### IRKit Internet HTTP API
 
-- TODO: POST /1/keys
+- POST /1/keys
 - TODO: POST /1/messages
 - TODO: GET /1/messages
 - TODO: POST /1/clients
