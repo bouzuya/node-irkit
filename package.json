@@ -1,6 +1,6 @@
 {
   "name": "@bouzuya/irkit",
-  "description": "A IRKit Device / Internet HTTP API wrapper for Node.js",
+  "description": "An IRKit Device / Internet HTTP API wrapper for Node.js",
   "version": "0.1.0",
   "author": {
     "email": "m@bouzuya.net",

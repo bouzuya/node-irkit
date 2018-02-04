@@ -1,6 +1,6 @@
 # node-irkit
 
-A [IRKit](http://getirkit.com/) Device / Internet HTTP API wrapper for Node.js.
+An [IRKit](http://getirkit.com/) Device / Internet HTTP API wrapper for Node.js.
 
 ## Installation
 
