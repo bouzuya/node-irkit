@@ -34,10 +34,10 @@ const main = async () => {
   }
 };
 
-try {
-  main();
-} catch (e) {
-  console.error(e);
-}
+// try {
+//   main();
+// } catch (e) {
+//   console.error(e);
+// }
 
 export { main };
