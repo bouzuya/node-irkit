@@ -83,6 +83,12 @@ main();
 
 ## License
 
+### [`src/irkit-device-key-serializer.ts`](src/irkit-device-key-serializer.ts)
+
+MIT [mash](http://jsdo.it/mash/keyserializer-test)
+
+### others
+
 [MIT](LICENSE)
 
 ## Author
