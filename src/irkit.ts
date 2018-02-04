@@ -6,7 +6,34 @@ export interface Key {
   deviceid: string;
 }
 
+const qsStringify = (params: { [k: string]: any; }): string => {
+  const qs = Object
+    .keys(params)
+    .sort()
+    .map((k) => [k, params[k]])
+    .filter(([_, v]) => typeof v !== 'undefined')
+    .map((pair) => pair.map((x) => encodeURIComponent(x)).join('='))
+    .join('&');
+  return qs.length === 0 ? '' : '?' + qs;
+};
+
 export class IRKit {
+  public getMessages(
+    { clear, clientkey }: {
+      clear?: 1;
+      clientkey: string;
+    }
+  ): Promise<{
+    deviceid: string;
+    hostname: string;
+    message: IRKitMessage;
+  }> {
+    return this.fetch('GET', '/1/messages', {
+      clear,
+      clientkey
+    });
+  }
+
   public postKeys(
     options: { clientkey?: string; clienttoken: string; }
   ): Promise<Key> {
@@ -27,10 +54,15 @@ export class IRKit {
     });
   }
 
-  private fetch<T>(method: string, path: string, body?: any): Promise<T> {
-    const url = 'https://api.getirkit.com' + path;
+  private fetch<T>(
+    method: string,
+    path: string,
+    params: { [k: string]: any; }
+  ): Promise<T> {
+    const url = 'https://api.getirkit.com' + path +
+      (method === 'GET' ? qsStringify(params) : '');
     return fetch(url, {
-      ...(method === 'GET' ? {} : { body: JSON.stringify(body) }),
+      ...(method === 'GET' ? {} : { body: JSON.stringify(params) }),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

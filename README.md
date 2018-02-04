@@ -81,7 +81,13 @@ const main = async () => {
       data: [ /* ... */ ]
     }
   });
-  console.log(key);
+
+  // IRKit.prototype.getMessages()
+  // GET /1/messages
+  const messages = await client.getMessages({
+    clientkey: keys.clientkey
+  });
+  console.log(messages);
 };
 
 main();
