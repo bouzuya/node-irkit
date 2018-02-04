@@ -13,14 +13,26 @@ npm install @bouzuya/irkit
 ```
 import { IRKitDevice } from '@bouzuya/irkit';
 
-// options.ip or `process.env.IRKIT_DEVICE_IP`
-const device = new IRKitDevice({ ip: '192.168.1.1' });
-device.getMessages().then((message) => {
+const main = async () => {
+  // options.ip or `process.env.IRKIT_DEVICE_IP`
+  const device = new IRKitDevice({ ip: '192.168.1.1' });
+
+  // IRKitDevice.prototype.getMessages()
+  const message = await device.getMessages();
   if (message !== null) {
     // {"format":"raw","freq":38,"data":[18031, ...]}
     console.log(message);
   }
-});
+
+  // IRKitDevice.prototype.postMessages()
+  await device.postMessages({
+    format: 'raw',
+    freq: 38,
+    data: [ /* ... */ ]
+  });
+};
+
+main();
 ```
 
 ## APIs
@@ -28,7 +40,7 @@ device.getMessages().then((message) => {
 ### IRKit Device HTTP API
 
 - GET /messages
-- TODO: POST /messages
+- POST /messages
 - TODO: POST /keys
 - TODO: POST /wifi
 

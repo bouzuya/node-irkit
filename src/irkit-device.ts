@@ -41,4 +41,23 @@ export class IRKitDevice {
           : Promise.reject(new Error(`status: ${response.status}`));
       });
   }
+
+  public postMessages(message: Message): Promise<void> {
+    const method = 'POST';
+    const path = '/messages';
+    const url = 'http://' + this.deviceIp + path;
+    return fetch(url, {
+      body: JSON.stringify(message),
+      headers: {
+        'Accept': 'text/plain', // text/plain only
+        'Content-Type': 'application/json'
+      },
+      method
+    })
+      .then((response) => {
+        return response.status === 200
+          ? response.text().then((text) => text.length === 0 ? null : JSON.parse(text))
+          : Promise.reject(new Error(`status: ${response.status}`));
+      });
+  }
 }
