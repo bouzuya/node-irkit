@@ -99,6 +99,14 @@ const main = async () => {
   });
   console.log(clients);
   // {"clientkey":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
+
+  // IRKit.prototype.postDevices()
+  // POST /1/devices
+  const devices = await client.postDevices({
+    clientkey: keys.clientkey
+  });
+  console.log(devices);
+  // {"devicekey":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX","deviceid":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
 };
 
 main();
@@ -119,7 +127,7 @@ main();
 - POST /1/messages
 - GET /1/messages
 - POST /1/clients
-- TODO: POST /1/devices
+- POST /1/devices
 - TODO: POST /1/door
 - TODO: POST /1/apps
 

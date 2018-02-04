@@ -40,6 +40,12 @@ export class IRKit {
     return this.fetch('POST', '/1/clients', options);
   }
 
+  public postDevices(
+    options: { clientkey: string; }
+  ): Promise<{ deviceid: string; devicekey: string; }> {
+    return this.fetch('POST', '/1/devices', options);
+  }
+
   public postKeys(
     options: { clientkey?: string; clienttoken: string; }
   ): Promise<Key> {
