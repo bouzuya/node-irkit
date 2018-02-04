@@ -31,7 +31,7 @@ const before = (): Promise<Context> => {
 const category = '/irkit-device (postMessages) ';
 const tests: Test[] = [
   test(
-    category + 'no message',
+    category,
     fixture({ before }, ({ device, fetch, message }) => {
       fetch.returns(Promise.resolve({
         status: 200,
@@ -49,24 +49,12 @@ const tests: Test[] = [
     })
   ),
   test(
-    category + 'a message',
-    fixture({ before }, ({ device, fetch, message }) => {
-      fetch.returns(Promise.resolve({
-        status: 200,
-        text: () => Promise.resolve('')
-      }));
-      return device.postMessages(message).then((m) => {
-        assert(m === null);
-      });
-    })
-  ),
-  test(
     category + 'an error',
-    fixture({ before }, ({ device, fetch }) => {
+    fixture({ before }, ({ device, fetch, message }) => {
       fetch.returns(Promise.resolve({
         status: 500
       }));
-      return device.getMessages().then(() => {
+      return device.postMessages(message).then(() => {
         assert.fail();
       }, (e) => {
         assert(e.message === 'status: 500'); // internal api
