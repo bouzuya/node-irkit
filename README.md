@@ -10,7 +10,12 @@ npm install @bouzuya/irkit
 
 ## Usage
 
-TODO
+```
+import { IRKitDevice } from '@bouzuya/irkit';
+
+// options.ip or `process.env.IRKIT_DEVICE_IP`
+const device = new IRKitDevice({ ip: '192.168.1.1' });
+```
 
 ## APIs
 

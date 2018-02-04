@@ -1,0 +1,80 @@
+import { Test, test } from 'beater';
+import assert from 'power-assert';
+import { IRKitDevice } from '../src/irkit-device';
+import { fixture } from './_';
+
+const category = '/irkit-device ';
+const tests: Test[] = [
+  test(
+    category + 'no options',
+    fixture(
+      {
+        after: ({ originalIp }) => {
+          process.env.IRKIT_DEVICE_IP = originalIp;
+        },
+        before: () => {
+          const originalIp = process.env.IRKIT_DEVICE_IP;
+          return Promise.resolve({ originalIp });
+        }
+      },
+      (_) => {
+        delete process.env.IRKIT_DEVICE_IP;
+        assert.throws(() => new IRKitDevice());
+      })
+  ),
+  test(
+    category + 'no deviceIp',
+    fixture(
+      {
+        after: ({ originalIp }) => {
+          process.env.IRKIT_DEVICE_IP = originalIp;
+        },
+        before: () => {
+          const originalIp = process.env.IRKIT_DEVICE_IP;
+          return Promise.resolve({ originalIp });
+        }
+      },
+      (_) => {
+        delete process.env.IRKIT_DEVICE_IP;
+        assert.throws(() => new IRKitDevice({}));
+      })
+  ),
+  test(
+    category + 'deviceIp from options',
+    fixture(
+      {
+        after: ({ originalIp }) => {
+          process.env.IRKIT_DEVICE_IP = originalIp;
+        },
+        before: () => {
+          const originalIp = process.env.IRKIT_DEVICE_IP;
+          return Promise.resolve({ originalIp });
+        }
+      },
+      (_) => {
+        delete process.env.IRKIT_DEVICE_IP;
+        const device = new IRKitDevice({ deviceIp: '192.168.1.2' });
+        assert(device.getDeviceIp() === '192.168.1.2');
+      })
+  ),
+  test(
+    category + 'deviceIp from env',
+    fixture(
+      {
+        after: ({ originalIp }) => {
+          process.env.IRKIT_DEVICE_IP = originalIp;
+        },
+        before: () => {
+          const originalIp = process.env.IRKIT_DEVICE_IP;
+          return Promise.resolve({ originalIp });
+        }
+      },
+      (_) => {
+        process.env.IRKIT_DEVICE_IP = '192.168.1.3';
+        const device = new IRKitDevice();
+        assert(device.getDeviceIp() === '192.168.1.3');
+      })
+  )
+];
+
+export { tests };
