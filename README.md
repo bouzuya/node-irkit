@@ -10,8 +10,8 @@ npm install @bouzuya/irkit
 
 ## Usage
 
-```
-import { IRKitDevice } from '@bouzuya/irkit';
+```typescript
+import { IRKitDevice, Message, Security } from '@bouzuya/irkit';
 
 const main = async () => {
   // options.ip or `process.env.IRKIT_DEVICE_IP`
@@ -19,7 +19,7 @@ const main = async () => {
 
   // IRKitDevice.prototype.getMessages()
   // GET /messages
-  const message = await device.getMessages();
+  const message: Message = await device.getMessages();
   if (message !== null) {
     // {"format":"raw","freq":38,"data":[18031, ...]}
     console.log(message);
@@ -38,6 +38,15 @@ const main = async () => {
   const keys = await device.postKeys();
   // {"clienttoken":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
   console.log(keys);
+
+  // IRKitDevice.prototype.postWifi()
+  // POST /wifi
+  await device.postWifi({
+    devicekey: /* ... */,
+    password: /* ... */,
+    security: Security.WPA_WPA2,
+    ssid: /* ... */
+  });
 };
 
 main();

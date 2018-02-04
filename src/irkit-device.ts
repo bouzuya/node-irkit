@@ -1,4 +1,9 @@
 import { fetch } from './_';
+import {
+  Security,
+  SerializeOptions,
+  serialize
+} from './irkit-device-key-serializer';
 
 export interface Key {
   clienttoken: string;
@@ -9,6 +14,10 @@ export interface Message {
   format: 'raw';
   freq: 38 | 40; // kHz
 }
+
+export type WifiOptions = SerializeOptions;
+
+export { Security };
 
 export class IRKitDevice {
   private deviceIp: string;
@@ -41,13 +50,17 @@ export class IRKitDevice {
     return this.fetch('POST', '/messages', message);
   }
 
+  public postWifi(wifi: WifiOptions): Promise<void> {
+    return this.fetch('POST', '/wifi', serialize(wifi));
+  }
+
   private fetch<T>(method: string, path: string, body?: any): Promise<T> {
     const url = 'http://' + this.deviceIp + path;
     return fetch(url, {
       ...(method === 'GET' ? {} : { body: JSON.stringify(body) }),
       headers: {
         'Accept': 'text/plain', // text/plain only
-        'Content-Type': 'application/json'
+        'Content-Type': 'text/plain'
       },
       method
     })
