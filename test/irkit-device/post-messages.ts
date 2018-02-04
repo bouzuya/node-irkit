@@ -2,13 +2,14 @@ import { Test, test } from 'beater';
 import assert from 'power-assert';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
-import { IRKitDevice as IRKitDevice_, Message as Message_ } from '../../src/irkit-device';
+import { IRKitDevice as IRKitDevice_ } from '../../src/irkit-device';
+import { IRKitMessage } from '../../src/irkit-message';
 import { fixture } from '../_';
 
 interface Context {
   device: IRKitDevice_;
   fetch: sinon.SinonStub;
-  message: Message_;
+  message: IRKitMessage;
 }
 
 const before = (): Promise<Context> => {

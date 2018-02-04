@@ -1,9 +1,10 @@
 import { IRKit } from './irkit';
-import { IRKitDevice, Message, Security } from './irkit-device';
+import { IRKitDevice, Security } from './irkit-device';
+import { IRKitMessage } from './irkit-message';
 
 export {
   IRKit,
   IRKitDevice,
-  Message,
+  IRKitMessage,
   Security
 };

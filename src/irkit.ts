@@ -1,14 +1,9 @@
 import { fetch } from './_';
+import { IRKitMessage } from './irkit-message';
 
 export interface Key {
   clientkey: string;
   deviceid: string;
-}
-
-export interface Message {
-  data: number[];
-  format: 'raw';
-  freq: 38 | 40; // kHz
 }
 
 export class IRKit {
@@ -19,7 +14,11 @@ export class IRKit {
   }
 
   public postMessages(
-    { clientkey, deviceid, message }: { clientkey: string; deviceid: string; message: Message; }
+    { clientkey, deviceid, message }: {
+      clientkey: string;
+      deviceid: string;
+      message: IRKitMessage;
+    }
   ): Promise<void> {
     return this.fetch('POST', '/1/messages', {
       clientkey,

@@ -4,15 +4,10 @@ import {
   SerializeOptions,
   serialize
 } from './irkit-device-key-serializer';
+import { IRKitMessage } from './irkit-message';
 
 export interface Key {
   clienttoken: string;
-}
-
-export interface Message {
-  data: number[];
-  format: 'raw';
-  freq: 38 | 40; // kHz
 }
 
 export type WifiOptions = SerializeOptions;
@@ -38,7 +33,7 @@ export class IRKitDevice {
     return this.deviceIp;
   }
 
-  public getMessages(): Promise<Message | null> {
+  public getMessages(): Promise<IRKitMessage | null> {
     return this.fetch('GET', '/messages');
   }
 
@@ -46,7 +41,7 @@ export class IRKitDevice {
     return this.fetch('POST', '/keys');
   }
 
-  public postMessages(message: Message): Promise<void> {
+  public postMessages(message: IRKitMessage): Promise<void> {
     return this.fetch('POST', '/messages', JSON.stringify(message));
   }
 

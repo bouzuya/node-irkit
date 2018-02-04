@@ -1,11 +1,12 @@
 import { Test, run, test } from 'beater';
 import assert from 'power-assert';
-import { IRKit, IRKitDevice, Message, Security } from '../src';
+import { IRKit, IRKitDevice, IRKitMessage, Security } from '../src';
 import { tests as irkitTests } from './irkit';
 import { tests as irkitDeviceTests } from './irkit-device';
 import {
   tests as irkitDeviceKeySerializerTests
 } from './irkit-device-key-serializer';
+import { tests as irkitMessageTests } from './irkit-message';
 
 const category = '/index ';
 const tests: Test[] = [
@@ -15,8 +16,8 @@ const tests: Test[] = [
   test(category + 'IRKitDevice', () => {
     assert(IRKitDevice);
   }),
-  test(category + 'Message', () => {
-    const message: Message = {
+  test(category + 'IRKitMessage', () => {
+    const message: IRKitMessage = {
       data: [],
       format: 'raw',
       freq: 38
@@ -34,6 +35,7 @@ const tests: Test[] = [
 ]
   .concat(irkitTests)
   .concat(irkitDeviceTests)
-  .concat(irkitDeviceKeySerializerTests);
+  .concat(irkitDeviceKeySerializerTests)
+  .concat(irkitMessageTests);
 
 run(tests).catch(() => process.exit(1));

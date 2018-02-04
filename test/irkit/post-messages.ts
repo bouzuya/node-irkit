@@ -2,7 +2,8 @@ import { Test, test } from 'beater';
 import assert from 'power-assert';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
-import { IRKit as IRKit_, Message as Message_ } from '../../src/irkit';
+import { IRKit as IRKit_ } from '../../src/irkit';
+import { IRKitMessage } from '../../src/irkit-message';
 import { fixture } from '../_';
 
 interface Context {
@@ -10,7 +11,7 @@ interface Context {
   deviceid: string;
   fetch: sinon.SinonStub;
   internet: IRKit_;
-  message: Message_;
+  message: IRKitMessage;
 }
 
 const before = (): Promise<Context> => {
