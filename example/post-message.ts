@@ -13,7 +13,7 @@ const loadMessage = (name: string): IRKitMessage => {
   return JSON.parse(data);
 };
 
-const main = async () => {
+const main = async (name: string) => {
   const clientkey: string | undefined = process.env.IRKIT_CLIENT_KEY;
   const deviceid: string | undefined = process.env.IRKIT_DEVICE_ID;
 
@@ -26,7 +26,7 @@ const main = async () => {
   }
 
   const internet = new IRKit();
-  const message = loadMessage('light');
+  const message = loadMessage(name);
   await internet.postMessages({
     clientkey,
     deviceid,

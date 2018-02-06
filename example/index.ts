@@ -5,9 +5,10 @@ import { main as setupDeviceDisconnedted } from './setup-device-disconnected';
 
 const main = async () => {
   const command = process.argv[2];
+  const arg = process.argv[3];
   switch (command) {
     case 'post-message':
-      return postMessage();
+      return postMessage(arg);
     case 'setup-device-connected':
       return setupDeviceDisconnedted();
     case 'setup-device-disconnected':
