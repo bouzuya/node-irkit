@@ -1,10 +1,10 @@
 import { Test, test } from 'beater';
+import { fixture } from 'beater-helpers/fixture';
 import assert from 'power-assert';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 import { IRKitDevice as IRKitDevice_ } from '../../src/irkit-device';
 import { IRKitMessage } from '../../src/irkit-message';
-import { fixture } from '../_';
 
 interface Context {
   device: IRKitDevice_;
@@ -33,7 +33,7 @@ const category = '/irkit-device (postMessages) ';
 const tests: Test[] = [
   test(
     category,
-    fixture({ before }, ({ device, fetch, message }) => {
+    fixture(before, (_) => void 0, ({ device, fetch, message }) => {
       fetch.returns(Promise.resolve({
         status: 200,
         text: () => Promise.resolve('')
@@ -50,7 +50,7 @@ const tests: Test[] = [
   ),
   test(
     category + 'an error',
-    fixture({ before }, ({ device, fetch, message }) => {
+    fixture(before, (_) => void 0, ({ device, fetch, message }) => {
       fetch.returns(Promise.resolve({
         status: 500
       }));

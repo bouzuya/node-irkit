@@ -1,9 +1,9 @@
 import { Test, test } from 'beater';
+import { fixture } from 'beater-helpers/fixture';
 import assert from 'power-assert';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 import { IRKit as IRKit_ } from '../../src/irkit';
-import { fixture } from '../_';
 
 interface Context {
   internet: IRKit_;
@@ -29,7 +29,7 @@ const category = '/irkit (postKeys) ';
 const tests: Test[] = [
   test(
     category,
-    fixture({ before }, ({ internet, fetch }) => {
+    fixture(before, (_) => void 0, ({ internet, fetch }) => {
       fetch.returns(Promise.resolve({
         status: 200,
         text: () => Promise.resolve('{"clientkey":"XXX","deviceid":"YYY"}')
@@ -49,7 +49,7 @@ const tests: Test[] = [
   ),
   test(
     category + 'HTTP 401',
-    fixture({ before }, ({ fetch, internet }) => {
+    fixture(before, (_) => void 0, ({ fetch, internet }) => {
       fetch.returns(Promise.resolve({
         status: 401
       }));

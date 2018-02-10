@@ -1,21 +1,19 @@
 import { Test, test } from 'beater';
+import { fixture } from 'beater-helpers/fixture';
 import assert from 'power-assert';
 import { IRKitDevice } from '../../src/irkit-device';
-import { fixture } from '../_';
 
 const category = '/irkit-device (constructor) ';
 const tests: Test[] = [
   test(
     category + 'no options',
     fixture(
-      {
-        after: ({ originalIp }) => {
-          process.env.IRKIT_DEVICE_IP = originalIp;
-        },
-        before: () => {
-          const originalIp = process.env.IRKIT_DEVICE_IP;
-          return Promise.resolve({ originalIp });
-        }
+      () => {
+        const originalIp = process.env.IRKIT_DEVICE_IP;
+        return Promise.resolve({ originalIp });
+      },
+      ({ originalIp }) => {
+        process.env.IRKIT_DEVICE_IP = originalIp;
       },
       (_) => {
         delete process.env.IRKIT_DEVICE_IP;
@@ -25,14 +23,12 @@ const tests: Test[] = [
   test(
     category + 'no deviceIp',
     fixture(
-      {
-        after: ({ originalIp }) => {
-          process.env.IRKIT_DEVICE_IP = originalIp;
-        },
-        before: () => {
-          const originalIp = process.env.IRKIT_DEVICE_IP;
-          return Promise.resolve({ originalIp });
-        }
+      () => {
+        const originalIp = process.env.IRKIT_DEVICE_IP;
+        return Promise.resolve({ originalIp });
+      },
+      ({ originalIp }) => {
+        process.env.IRKIT_DEVICE_IP = originalIp;
       },
       (_) => {
         delete process.env.IRKIT_DEVICE_IP;
@@ -42,14 +38,12 @@ const tests: Test[] = [
   test(
     category + 'deviceIp from options',
     fixture(
-      {
-        after: ({ originalIp }) => {
-          process.env.IRKIT_DEVICE_IP = originalIp;
-        },
-        before: () => {
-          const originalIp = process.env.IRKIT_DEVICE_IP;
-          return Promise.resolve({ originalIp });
-        }
+      () => {
+        const originalIp = process.env.IRKIT_DEVICE_IP;
+        return Promise.resolve({ originalIp });
+      },
+      ({ originalIp }) => {
+        process.env.IRKIT_DEVICE_IP = originalIp;
       },
       (_) => {
         delete process.env.IRKIT_DEVICE_IP;
@@ -60,14 +54,12 @@ const tests: Test[] = [
   test(
     category + 'deviceIp from env',
     fixture(
-      {
-        after: ({ originalIp }) => {
-          process.env.IRKIT_DEVICE_IP = originalIp;
-        },
-        before: () => {
-          const originalIp = process.env.IRKIT_DEVICE_IP;
-          return Promise.resolve({ originalIp });
-        }
+      () => {
+        const originalIp = process.env.IRKIT_DEVICE_IP;
+        return Promise.resolve({ originalIp });
+      },
+      ({ originalIp }) => {
+        process.env.IRKIT_DEVICE_IP = originalIp;
       },
       (_) => {
         process.env.IRKIT_DEVICE_IP = '192.168.1.3';

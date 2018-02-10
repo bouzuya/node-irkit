@@ -1,10 +1,10 @@
 import { Test, test } from 'beater';
+import { fixture } from 'beater-helpers/fixture';
 import assert from 'power-assert';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 import { IRKit as IRKit_ } from '../../src/irkit';
 import { IRKitMessage } from '../../src/irkit-message';
-import { fixture } from '../_';
 
 interface Context {
   clientkey: string;
@@ -14,7 +14,7 @@ interface Context {
   message: IRKitMessage;
 }
 
-const before = (): Promise<Context> => {
+const setUp = (): Promise<Context> => {
   const fetch = sinon.stub();
   const IRKit: typeof IRKit_ = proxyquire(
     '../../src/irkit',
@@ -37,7 +37,7 @@ const category = '/irkit (postMessages) ';
 const tests: Test[] = [
   test(
     category,
-    fixture({ before }, ({
+    fixture(setUp, (_) => void 0, ({
       clientkey,
       deviceid,
       fetch,
@@ -69,13 +69,14 @@ const tests: Test[] = [
   ),
   test(
     category + 'HTTP 401',
-    fixture({ before }, ({
-      clientkey,
-      deviceid,
-      fetch,
-      internet,
-      message
-    }) => {
+    fixture(setUp, (_) => void 0, (context) => {
+      const {
+        clientkey,
+        deviceid,
+        fetch,
+        internet,
+        message
+      } = context!;
       fetch.returns(Promise.resolve({
         status: 401
       }));

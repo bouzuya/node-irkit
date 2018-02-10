@@ -1,9 +1,9 @@
 import { Test, test } from 'beater';
+import { fixture } from 'beater-helpers/fixture';
 import assert from 'power-assert';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 import { IRKitDevice as IRKitDevice_ } from '../../src/irkit-device';
-import { fixture } from '../_';
 
 interface Context {
   device: IRKitDevice_;
@@ -29,7 +29,7 @@ const category = '/irkit-device (getMessages) ';
 const tests: Test[] = [
   test(
     category + 'no message',
-    fixture({ before }, ({ device, fetch }) => {
+    fixture(before, (_) => void 0, ({ device, fetch }) => {
       fetch.returns(Promise.resolve({
         status: 200,
         text: () => Promise.resolve('')
@@ -45,7 +45,7 @@ const tests: Test[] = [
   ),
   test(
     category + 'a message',
-    fixture({ before }, ({ device, fetch }) => {
+    fixture(before, (_) => void 0, ({ device, fetch }) => {
       const message = '{"format":"raw","freq":38,"data":[1, 2, 3]}';
       fetch.returns(Promise.resolve({
         status: 200,
@@ -58,7 +58,7 @@ const tests: Test[] = [
   ),
   test(
     category + 'an error',
-    fixture({ before }, ({ device, fetch }) => {
+    fixture(before, (_) => void 0, ({ device, fetch }) => {
       fetch.returns(Promise.resolve({
         status: 500
       }));
