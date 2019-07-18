@@ -9,6 +9,14 @@
   },
   "babel": {
     "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "8"
+          }
+        }
+      ],
       "power-assert"
     ]
   },
@@ -19,16 +27,17 @@
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@types/isomorphic-fetch": "0.0.35",
     "@types/node": "^12.6.8",
     "@types/power-assert": "^1.5.0",
     "@types/proxyquire": "^1.3.28",
     "@types/sinon": "^7.0.13",
-    "babel-cli": "^6.26.0",
     "babel-preset-power-assert": "^3.0.0",
     "beater": "^6.0.1",
     "beater-helpers": "^1.0.1",
-    "cpx": "^1.5.0",
     "npm-run-all": "^4.1.5",
     "power-assert": "^1.6.1",
     "proxyquire": "^2.1.1",
@@ -53,8 +62,8 @@
   "scripts": {
     "build": "npm-run-all -s \"build:lint\" \"build:es2015\" \"build:es5\" \"build:lib\"",
     "build:es2015": "tsc",
-    "build:es5": "babel -q -d \".tmp/es5/\" \".tmp/es2015/\"",
-    "build:lib": "cpx \".tmp/es2015/src/**/*.{js,ts}\" \"lib/\"",
+    "build:es5": "babel --out-dir .tmp/es5 --source-map inline .tmp/es2015",
+    "build:lib": "babel --copy-files --no-comments --out-dir lib .tmp/es2015/src",
     "build:lint": "tslint --project tsconfig.json",
     "clean": "rimraf \".tmp\" \"lib\"",
     "prepare": "npm-run-all -s \"clean\" \"build\"",
